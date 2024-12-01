@@ -228,4 +228,87 @@ int main(){
 
 ===================================================================================================
 
+NHOM BAN
+
+#include <bits/stdc++.h>
+using namespace std;
+const int N=10e5+7;
+vector <int> e[N];
+int dem=0;
+bool vi[N];
+void dfs(int u){
+    dem++;
+    vi[u]=1;
+    for(int v:e[u]){
+        if(!vi[v]){
+            dfs(v);
+        }
+    }
+}
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    int n,m;
+    cin>>n>>m;
+    int u,v;
+    for(int i=1;i<=m;i++){
+        cin>>u>>v;
+        e[u].push_back(v);
+        e[v].push_back(u);
+    }
+    int res=0;
+    for(int i=1;i<=n;i++){
+        if(!vi[i]){
+            dem=0;
+            dfs(i);
+            res=max(dem,res);
+        }
+    }
+    cout<<res;
+}
+
+
+
+=====================================================================================
+
+XAY CAU
+
+
+#include <bits/stdc++.h>
+using namespace std;
+const int N=1e5+7;
+vector<int> e[N];
+bool vi[N];
+void dfs(int u){
+    vi[u]=1;
+    for (int v:e[u]) {
+        if(!vi[v]){
+            dfs(v);
+        }
+    }
+}
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
+    int n,m;
+    cin>>n>>m;
+    int u,v;
+    for(int i=1;i<=m;i++){
+        cin>>u>>v;
+        e[u].push_back(v);
+        e[v].push_back(u); 
+    }
+    int dem=0; 
+    for(int i=1;i<=n;i++) {
+        if (!vi[i]){ 
+            dem++;
+            dfs(i);
+        }
+    }
+    cout<<dem-1;
+}
+
 
