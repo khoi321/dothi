@@ -1,0 +1,195 @@
+Mạng máy tính (kiểm tra liên thông từ s -> t;
+
+#include <bits/stdc++.h>
+using namespace std;
+const int N=1e5+7;
+bool visited[N]{false};
+vector<int> a[N];
+void dfs(int u){
+    visited[u]=true;
+    for(int x:a[u]){
+        if(!visited[x]){
+            dfs(x);
+        }
+    }
+}
+void check(int s,int t){
+    dfs(s);
+    if(!visited[t]){
+        cout<<"no";
+    }else{
+        cout<<"yes";
+    }
+}
+int main(){
+    int n,m,k;
+    cin>>n>>m>>k;
+    for(int i=1;i<=m;i++){
+        int u,v;
+        cin>>u>>v;
+        a[u].push_back(v);
+        a[v].push_back(u);
+    }
+    check(n,k);
+}
+               
+============================================================================================================================================
+
+Thành phần liên thông trong đồ thị
+#include <bits/stdc++.h>
+using namespace std;
+const int N=1e5+7;
+bool visited[N]{false};
+vector<int> a[N];
+int n,m;
+void dfs(int u){
+    visited[u]=true;
+    for(int x:a[u]){
+        if(!visited[x]){
+            dfs(x);
+        }
+    }
+}
+void tplt(){
+    int dem=0;
+    for(int i=1;i<=n;i++){
+        if(!visited[i]){
+            dfs(i);
+            dem++;
+        }
+    }
+    cout<<dem;
+}
+int main(){
+    cin>>n>>m;
+    for(int i=1;i<=m;i++){
+        int u,v;
+        cin>>u>>v;
+        a[u].push_back(v);
+        a[v].push_back(u);
+    }
+    tplt();
+}
+========================================================================================================
+
+  LIỆT KÊ Thành phần liên thông trong đồ thị
+#include <bits/stdc++.h>
+using namespace std;
+const int N=1e5+3;
+bool visited[N];
+vector<int> a[N];
+int n,m;
+void dfs(int u, vector<int>& tp){
+    visited[u]=true;
+    tp.push_back(u);
+    for(int v:a[u]){
+        if(!visited[v]){
+            dfs(v,tp);
+        }
+    }
+}
+int main(){
+    cin>>n>>m;
+    for(int i=0;i<m;i++){
+        int u,v;
+        cin>>u>>v;
+        a[u].push_back(v);
+        a[v].push_back(u);
+    }
+
+    for(int i=1;i<=n;i++){
+        sort(a[i].begin(),a[i].end());
+    }
+    for(int i=1;i<=n;i++){
+        if(!visited[i]){
+            vector<int> tp;
+            dfs(i,tp);
+            sort(tp.begin(),tp.end());
+            for(int x:tp){
+                cout<<x<<" ";
+            }
+            cout<<endl;
+        }
+    }
+}
+=============================================================================================================================
+              
+GUI TIN NHAN
+
+#include <bits/stdc++.h>
+using namespace std;
+const int N=1e5+7;
+bool visited[N]{false};
+int n,m;
+vector<int> a[N];
+void dfs(int u){
+    visited[u]=true;
+    for(int x:a[u]){
+        if(!visited[x]){
+            dfs(x);
+        }
+    }
+}
+void tplt(){
+    int dem=0;
+    for(int i=1;i<=n;i++){
+        if(!visited[i]){
+            dfs(i);
+            dem++;
+        }
+    }
+    cout<<dem;
+}
+int main(){
+    cin>>n>>m;
+    for(int i=1;i<=m;i++){
+        int u,v;
+        cin>>u>>v;
+        a[u].push_back(v);
+        a[v].push_back(u);
+    }
+    tplt();
+}
+
+=========================== ================================================================================
+
+KET BẠN (k full quá thời gian)
+
+
+#include <bits/stdc++.h>
+using namespace std;
+const int N=1e5+7;
+bool visited[N]{false};
+int n,m,k;
+vector<int> a[N];
+void dfs(int u){
+    visited[u]=true;
+    for(int x:a[u]){
+        if(!visited[x]){
+            dfs(x);
+        }
+    }
+}
+int main(){
+    ios::sync_with_stdio(false); 
+    cin.tie(nullptr);  
+    cin>>n>>k>>m;
+    for(int i=1;i<=m;i++){
+        int u,v;
+        cin>>u>>v;
+        a[u].push_back(v);
+        a[v].push_back(u);
+    }
+    dfs(k);
+    int dem=0;
+    for(int i=1;i<=n;i++){
+        if(visited[i]){
+            dem++;
+        }
+    }
+    cout<<dem-1;
+}
+
+
+==========================================================================================
+      
