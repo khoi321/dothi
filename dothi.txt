@@ -192,4 +192,40 @@ int main(){
 
 
 ==========================================================================================
-      
+
+CHÚ BÒ HƯ HỎNG
+
+
+#include <bits/stdc++.h>
+using namespace std;
+const int N=1e5+7;
+bool visited[N];
+vector<int> a[N];
+void dfs(int u){
+    visited[u]=true;
+    for(int x:a[u]){
+        if(!visited[x]){
+            dfs(x);
+        }
+    }
+}
+int main(){
+    int n,m;
+    cin>>n>>m;
+    for(int i=1;i<=m;i++){
+        int u,v;
+        cin>>u>>v;
+        a[u].push_back(v);
+        a[v].push_back(u);
+    }
+    dfs(1);
+    for(int i=1;i<=n;i++){
+        if(!visited[i]){
+            cout<<i<<endl;
+        }
+    }
+}
+
+===================================================================================================
+
+
