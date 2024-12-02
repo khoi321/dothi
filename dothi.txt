@@ -542,3 +542,38 @@ int main(){
     cout<<ans<<" "<<hang<<" "<<cot;
 }
 ==============================================================
+Xe buyt
+
+#include <bits/stdc++.h>
+using namespace std;
+int bfs(int n, int A, int B, const vector<vector<int>>& adj) {
+    vector<int> d(n+1);
+    queue<int> q;
+    d[A] = 0;
+    q.push(A);
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+        for (int v : adj[u]) {
+            if (!d[v]) {
+                d[v] = d[u] + 1;
+                q.push(v);
+                if (v == B) return d[v] - 1;
+            }
+        }
+    }
+    return -1;
+}
+int main() {
+    int n, A, B;
+    cin >> n >> A >> B;
+    vector<vector<int>> adj(n + 1);
+    for(int i = 1; i <= n; i++){
+        int x, y; cin >> x >> y;
+        adj[x].push_back(y);
+        adj[y].push_back(x);
+    }
+    int res = bfs(n, A, B, adj);
+    cout << res << endl;
+    return 0;
+}
