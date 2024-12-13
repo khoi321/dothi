@@ -577,3 +577,227 @@ int main() {
     cout << res << endl;
     return 0;
 }
+=============================================================================
+BAI CO
+
+
+
+#include <bits/stdc++.h>
+#define ii pair<int,int>
+using namespace std;
+const int N=1e3+7;
+char a[N][N];
+bool vi[N][N];
+int dx[]={-1,0,0,1};
+int dy[]={0,-1,1,0};
+int n,m;
+void loang(int i,int j){
+    queue<ii>q;
+    q.push({i,j});
+    vi[i][j]=true;
+    while(!q.empty()){
+        ii top=q.front();
+        q.pop();
+        for(int k=0;k<4;k++){
+            int i1=top.first+dx[k];
+            int j1=top.second+dy[k];
+            if(i1>=1 && i1<=n && j1>=1 && j1<=m && a[i1][j1]=='#' && !vi[i1][j1]){
+                q.push({i1,j1});
+                vi[i1][j1]=true;
+            }
+        }
+    }
+}
+int main(){
+    int dem=0;
+    cin>>n>>m;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            cin>>a[i][j];
+        }
+    }
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            if(a[i][j]=='#' && !vi[i][j]){
+                loang(i,j);
+                dem++;
+            }
+        }
+    }
+    cout<<dem++;
+}
+
+
+===================================================================================
+
+CHUOT
+
+
+
+
+#include <bits/stdc++.h>
+#define ii pair<int,int>
+using namespace std;
+const int N=1e3+7;
+bool vi[N][N];
+char a[N][N];
+int dx[]={-1,0,0,1};
+int dy[]={0,-1,1,0};
+int n,m,ans;
+void loang(int i,int j){
+    queue<ii> q;
+    q.push({i,j});
+    vi[i][j]=true;
+    int dem=0;
+    while(!q.empty()){
+        ii top=q.front();
+        q.pop();
+        dem++;
+        for(int k=0;k<4;k++){
+            int i1=top.first+dx[k];
+            int j1=top.second+dy[k];
+            if(i1>=1 && i1<=n && j1>=1 && j1<=m && a[i1][j1]=='1' && !vi[i1][j1]){
+                q.push({i1,j1});
+                vi[i1][j1]=true;
+            }
+        }
+    }
+    if(dem>ans){
+        ans=dem;
+    }
+}
+
+int main(){
+    cin>>n>>m;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            cin>>a[i][j];
+        }
+    }
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            if(a[i][j]=='1' && !vi[i][j]){
+                loang(i,j);
+            }
+        }
+    }
+    cout<<ans;
+}
+
+
+
+
+===============================================================================
+CHIEN TRANH
+
+
+#include <bits/stdc++.h>
+#define ii pair<int,int>
+using namespace std;
+const int N=1e3+7;
+int a[N][N];
+int dx[]={-1,0,0,1};
+int dy[]={0,-1,1,0};
+int n,m,datlien;
+
+void loang(int i,int j){
+    queue<ii> q;
+    q.push({i,j});
+    a[i][j]=0; // Phá hủy ô đất hiện tại
+    datlien--; // Giảm diện tích đất liền
+    while(!q.empty()){
+        ii top=q.front();
+        q.pop();
+        for(int k=0;k<4;k++){
+            int i1=top.first+dx[k];
+            int j1=top.second+dy[k];
+            if(i1>=1&&i1<=n&&j1>=1&&j1<=m&&a[i1][j1]==1){
+                q.push({i1,j1});
+                a[i1][j1]=0; // Phá hủy ô đất lân cận
+                datlien--; // Giảm diện tích đất liền
+            }
+        }
+    }
+}
+
+int main(){
+    int attack;
+    cin>>n>>m>>attack;
+    datlien=0;
+
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            cin>>a[i][j];
+            if(a[i][j]==1){
+                datlien++;
+            }
+        }
+    }
+
+    for(int i=1;i<=attack;i++){
+        int u,v;
+        cin>>u>>v;
+        if(a[u][v]==1){
+            loang(u,v);
+        }
+        cout<<datlien<<endl;
+    }
+}
+
+=======================================================================================
+QUY HOACH DAT
+
+
+#include <bits/stdc++.h>
+#define ii pair<int,int>
+using namespace std;
+const int N=1e3+7;
+bool vi[N][N];
+char a[N][N];
+int dx[]={-1,0,0,1};
+int dy[]={0,-1,1,0};
+int n,m,dem,ans;
+void loang(int i,int j,int x){
+    queue<ii> q;
+    q.push({i,j});
+    vi[i][j]=true;
+    while(!q.empty()){
+        ii top=q.front();
+        q.pop();
+        dem++;
+        for(int k=0;k<4;k++){
+            int i1=top.first+dx[k];
+            int j1=top.second+dy[k];
+            if(i1>=1 && i1<=n && j1>=1 && j1<=m && a[i1][j1]==x && !vi[i1][j1]){
+                q.push({i1,j1});
+                vi[i1][j1]=true;
+            }
+        }
+    }
+    if(dem>ans){
+        ans=dem;
+    }
+}
+int main(){
+    int ct=0;
+    ans=0;
+    cin>>n>>m;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            cin>>a[i][j];
+        }
+    }
+     for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            if(!vi[i][j]){
+                dem=0;
+                loang(i,j,a[i][j]);
+                ct++;
+            }
+        }
+    }
+    cout<<ct<<endl<<ans;
+}
+
+========================================================================
+
